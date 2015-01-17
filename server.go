@@ -5,12 +5,11 @@ import (
 	"net/http"
 )
 
-func hello(w http.ResponseWriter, r *http.Request) {
-	io.WriteString(w, r.RemoteAddr)
-}
 
 func main() {
-	http.HandleFunc("/", hello)
+	http.HandleFunc("/", func (w http.ResponseWriter, r *http.Request) {
+		io.WriteString(w, r.RemoteAddr)
+	})
 	http.ListenAndServe(":8000", nil)
 	http.ListenAndServe("[::]8000", nil)
 }
